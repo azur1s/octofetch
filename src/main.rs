@@ -93,7 +93,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         
         let fetch = Paragraph::new(data)
             .block(Block::default()
-            .title(Span::styled(" femboyfetch ", Style::default().fg(Color::Magenta) ))
+            .title(Span::styled(" octofetch ", Style::default().fg(Color::Magenta) ))
             .borders(Borders::ALL)
             .border_type(BorderType::Rounded));
 
