@@ -41,44 +41,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // The json of the api's body
     let user: UserData = serde_json::from_str(&res)?;
 
-    let data = vec![
-
-        Spans::from(vec![
-            Span::styled( " Username: ", Style::default().fg(Color::Magenta) ),
-            Span::raw(user.login)
-        ]),
-
-        // Spans::from(vec![
-        //     Span::styled( "     Name: ", Style::default().fg(Color::Magenta) ),
-        //     Span::raw(user.name),
-        // ]),
-
-        Spans::from(vec![
-            Span::styled( "    Repos: ", Style::default().fg(Color::Magenta) ),
-            Span::raw(user.public_repos.to_string()),
-        ]),
-
-        Spans::from(vec![
-            Span::styled( "    Gists: ", Style::default().fg(Color::Magenta) ),
-            Span::raw(user.public_gists.to_string()),
-        ]),
-
-        Spans::from(vec![
-            Span::styled( "Followers: ", Style::default().fg(Color::Magenta) ),
-            Span::raw(user.followers.to_string()),
-        ]),
-
-        Spans::from(vec![
-            Span::styled( "Following: ", Style::default().fg(Color::Magenta) ),
-            Span::raw(user.following.to_string()),
-        ]),
-
-        Spans::from(vec![
-            Span::styled( "      Url: ", Style::default().fg(Color::Magenta) ),
-            Span::raw(user.html_url),
-        ])
-            
+    let spans = vec![
+        (" Username ", user.login),
+        ("    Repos: ", user.public_repos.to_string()),
+        ("    Gists: ", user.public_gists.to_string()),
+        ("Followers: ", user.followers.to_string()),
+        ("Following: ", user.following.to_string()),
+        ("    User: ", user.html_url)
     ];
+
+    let data: Vec<Spans> = spans
+        .iter()
+        .map(|(s1, s2)| {
+            Spans::from(vec![
+                Span::styled(s1.to_string(), Style::default().fg(Color::Magenta)),
+                Span::raw(s2)
+            ])
+        })
+        .collect();
     
     let stdout = io::stdout();
     let backend = CrosstermBackend::new(stdout);
