@@ -139,19 +139,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "femboyfetch"
-version = "0.1.0"
-dependencies = [
- "colored",
- "crossterm 0.21.0",
- "reqwest",
- "serde",
- "serde_json",
- "tokio",
- "tui",
-]
-
-[[package]]
 name = "fnv"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -494,6 +481,19 @@ checksum = "05499f3756671c15885fee9034446956fff3f243d6077b91e5767df161f766b3"
 dependencies = [
  "hermit-abi",
  "libc",
+]
+
+[[package]]
+name = "octofetch"
+version = "0.1.0"
+dependencies = [
+ "colored",
+ "crossterm 0.21.0",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tui",
 ]
 
 [[package]]
