@@ -42,12 +42,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let user: UserData = serde_json::from_str(&res)?;
 
     let spans = vec![
-        (" Username ", user.login),
+        (" Username: ", user.login),
         ("    Repos: ", user.public_repos.to_string()),
         ("    Gists: ", user.public_gists.to_string()),
         ("Followers: ", user.followers.to_string()),
         ("Following: ", user.following.to_string()),
-        ("    User: ", user.html_url)
+        ("     User: ", user.html_url)
     ];
 
     let data: Vec<Spans> = spans
