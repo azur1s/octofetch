@@ -2,19 +2,19 @@
 use reqwest;
 use reqwest::header::USER_AGENT;
 
+// Args
+use structopt::StructOpt;
+
 // Misc
+use termion::color;
 use serde::{Serialize, Deserialize};
 use serde_json;
 
-// TUI
-use tui::widgets::*;
-use tui::Terminal;
-use tui::backend::CrosstermBackend;
-use tui::text::{ Span, Spans};
-use tui::style::{ Color, Style };
-use tui::layout::Rect;
-use crossterm::{ execute, terminal };
-use std::io;
+#[derive(StructOpt)]
+struct Args {
+    #[structopt(short = "u", long = "username")]
+    username: String,
+}
 
 #[derive(Serialize, Deserialize)]
 struct UserData {
@@ -30,56 +30,28 @@ struct UserData {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
-    let id = std::env::args().nth(1).expect("No username given :(");
+    let args = Args::from_args();
 
-    let url = format!( "https://api.github.com/users/{}", id );
+    let url = format!( "https://api.github.com/users/{}", args.username );
     
     // Get the body of the request
     let client = reqwest::Client::new();
-    let res = client.get(url).header(USER_AGENT, "rust cli").send().await?.text().await?;
+    let res = client.get(url).header(USER_AGENT, "octofetch cli").send().await?.text().await?;
 
     // The json of the api's body
     let user: UserData = serde_json::from_str(&res)?;
 
-    let spans = vec![
-        (" Username: ", user.login),
-        ("    Repos: ", user.public_repos.to_string()),
-        ("    Gists: ", user.public_gists.to_string()),
-        ("Followers: ", user.followers.to_string()),
-        ("Following: ", user.following.to_string()),
-        ("     User: ", user.html_url)
-    ];
+    let main = color::Fg(color::Magenta);
+    let accent = color::Fg(color::White);
 
-    let data: Vec<Spans> = spans
-        .iter()
-        .map(|(s1, s2)| {
-            Spans::from(vec![
-                Span::styled(s1.to_string(), Style::default().fg(Color::Magenta)),
-                Span::raw(s2)
-            ])
-        })
-        .collect();
-    
-    let stdout = io::stdout();
-    let backend = CrosstermBackend::new(stdout);
-    let mut terminal = Terminal::new(backend)?;
-
-    execute!(io::stdout(), terminal::Clear(terminal::ClearType::FromCursorUp))?;
-
-    terminal.draw(|f| {
-
-        const BORDER_OFFSET: u16 = 2;
-        let size = Rect::new( 0, 0, 50, data.len() as u16 + BORDER_OFFSET );
-        
-        let fetch = Paragraph::new(data)
-            .block(Block::default()
-            .title(Span::styled(" octofetch ", Style::default().fg(Color::Magenta) ))
-            .borders(Borders::ALL)
-            .border_type(BorderType::Rounded));
-
-        f.render_widget(fetch, size);
-        
-    })?;
+    println!(" {}{} {}@ {}GitHub", main, user.login, accent, main);
+    println!(" ----------");
+    println!(" {}Repos: {}{}", main, accent, user.public_repos.to_string());
+    println!(" {}Gists: {}{}", main, accent, user.public_gists.to_string());
+    println!(" {}Followers: {}{}", main, accent, user.followers.to_string());
+    println!(" {}Following: {}{}", main, accent, user.following.to_string());
+    println!(" {}User: {}{}", main, accent, user.html_url);
+    println!("");
 
     Ok(())
 }
