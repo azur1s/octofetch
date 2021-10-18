@@ -9,5 +9,4 @@ This is still buggy on Linux terminal and I dont gurantee it will work.
 sorry for the cluttered prompt, havent rice it yet ;)
 
 # Known bugs
-- Currently replaces text in console instead of printing new texts like `neofetch`
-- The `%`
+- None yet! Let me know by opening in the issues!
