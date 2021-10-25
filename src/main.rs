@@ -9,7 +9,8 @@ use structopt::StructOpt;
 use termion::color;
 use serde::{Serialize, Deserialize};
 use serde_json;
-use std::fmt;
+
+mod content_box;
 
 #[derive(StructOpt)]
 struct Args {
@@ -28,35 +29,6 @@ struct UserData {
     html_url: String,
 }
 
-struct ContentBox {
-    pushed_lines: Vec<String>,
-    longest_line: usize,
-}
-
-impl fmt::Display for ContentBox {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let dashes = "─".repeat(self.longest_line + 2 - 18); 
-
-        write!(f, "╭{}╮\n", dashes);
-
-        for pushed_line in self.pushed_lines.iter() {
-            write!(f, "│{}{} │\n", pushed_line, " ".repeat(self.longest_line - pushed_line.len() + 1));
-        }
-
-        write!(f, "╰{}╯\n", dashes)
-    }
-}
-
-impl ContentBox {
-    fn push(&mut self, line: String) {
-        let new_line = line.len();
-        self.pushed_lines.push(line);
-        if new_line > self.longest_line {
-            self.longest_line = new_line;
-        }
-    }
-}
-
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
@@ -70,7 +42,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // The json of the api's body
     let user: UserData = serde_json::from_str(&res)?;
     
-    let mut info = ContentBox{ pushed_lines: Vec::new(), longest_line: 0 };
+    let mut info = content_box::ContentBox{ pushed_lines: Vec::new(), longest_line: 0 };
 
     let main = color::Fg(color::Magenta);
     let accent = color::Fg(color::White);
