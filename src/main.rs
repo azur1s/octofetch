@@ -35,13 +35,15 @@ struct ContentBox {
 
 impl fmt::Display for ContentBox {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "╭{}╮\n", "─".repeat(self.longest_line + 2 - 18));
+        let dashes = "─".repeat(self.longest_line + 2 - 18); 
+
+        write!(f, "╭{}╮\n", dashes);
 
         for pushed_line in self.pushed_lines.iter() {
             write!(f, "│{}{} │\n", pushed_line, " ".repeat(self.longest_line - pushed_line.len() + 1));
         }
 
-        write!(f, "╰{}╯\n", "─".repeat(self.longest_line + 2 - 18))
+        write!(f, "╰{}╯\n", dashes)
     }
 }
 
