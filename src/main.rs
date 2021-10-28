@@ -2,21 +2,12 @@
 use reqwest;
 use reqwest::header::USER_AGENT;
 
-// Args
-use structopt::StructOpt;
-
 // Misc
 use termion::color;
 use serde::{Serialize, Deserialize};
 use serde_json;
 
 mod content_box;
-
-#[derive(StructOpt)]
-struct Args {
-    #[structopt(short = "u", long = "username")]
-    username: String,
-}
 
 #[derive(Serialize, Deserialize)]
 struct UserData {
@@ -32,9 +23,9 @@ struct UserData {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
-    let args = Args::from_args();
+    let username = std::env::args().nth(1).expect("No username given. Exiting...");
 
-    let url = format!( "https://api.github.com/users/{}", args.username );
+    let url = format!( "https://api.github.com/users/{}", username );
     
     // Get the body of the request
     let client = reqwest::Client::new();
