@@ -49,7 +49,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     info.push(format!("{}Username: {}{}"  , main, accent, user.login));
     if user.bio != None {
-        info.push(format!("{}Bio: {}{:?}"  , main, accent, user.bio.unwrap()));
+        info.push(format!("{}Bio: {}{}"  , main, accent, user.bio.unwrap()));
     }
     info.push(format!("{}Repos: {}{}"     , main, accent, user.public_repos));
     info.push(format!("{}Gists: {}{}"     , main, accent, user.public_gists));
