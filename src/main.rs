@@ -6,6 +6,7 @@ use reqwest::header::USER_AGENT;
 use termion::color;
 use serde::{Serialize, Deserialize};
 use serde_json;
+use std::process;
 
 mod content_box;
 
@@ -24,6 +25,13 @@ struct UserData {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let username = std::env::args().nth(1).expect("No username given. Exiting...");
+
+    // -v : print version and exit
+    if username.eq("-v") {
+        const VERSION: &'static str = env!("CARGO_PKG_VERSION");
+        println!("octofetch v{}", VERSION);
+        process::exit(1);
+    }
 
     let url = format!( "https://api.github.com/users/{}", username );
     
