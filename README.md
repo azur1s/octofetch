@@ -1,6 +1,6 @@
 # octofetch
 
-This is still buggy on Linux terminal and I dont gurantee it will work.
+Use this if youre too lazy to open github lol
 
 # Usage
 ```octofetch <username>```
@@ -8,4 +8,4 @@ This is still buggy on Linux terminal and I dont gurantee it will work.
 <img src=https://taku.n1ko23.moe/static/attachments/1635502055170-image.png>
 
 # Known bugs
-- None yet! Let me know by opening in the issues!
+- No error handling
