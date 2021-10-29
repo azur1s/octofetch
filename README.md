@@ -2,6 +2,10 @@
 
 Use this if youre too lazy to open github lol
 
+# Features
+
+fetch github user stats lol
+
 # Usage
 ```octofetch <username>```
 
