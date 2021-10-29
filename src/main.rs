@@ -14,6 +14,7 @@ mod content_box;
 struct UserData {
     login: String,
     name: String,
+    bio: Option<String>,
     public_repos: i64,
     public_gists: i64,
     followers: i64,
@@ -47,6 +48,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let accent = color::Fg(color::White);
 
     info.push(format!("{}Username: {}{}"  , main, accent, user.login));
+    if user.bio != None {
+        info.push(format!("{}Bio: {}{:?}"  , main, accent, user.bio.unwrap()));
+    }
     info.push(format!("{}Repos: {}{}"     , main, accent, user.public_repos));
     info.push(format!("{}Gists: {}{}"     , main, accent, user.public_gists));
     info.push(format!("{}Follower: {}{}"  , main, accent, user.followers));
@@ -57,4 +61,3 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-
