@@ -8,12 +8,11 @@ mod content_box;
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if std::env::args().nth(1) == None {
 	    eprintln!("No username given. Exiting...");
-	    eprintln!("Type octofetch <username> to fetch user info.");
 	    process::exit(1);
     }
     let username = std::env::args()
         .nth(1)
-        .expect("No username given. Exiting...\nType octofetch <username> to fetch user info.");
+        .expect("No username given. Exiting...");
 
     // -v : print version and exit
     if username.eq("-v") {
