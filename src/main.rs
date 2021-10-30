@@ -28,7 +28,11 @@ Other:
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-
+  
+  if std::env::args().nth(1) == None {
+    println!("No username given. Exiting...");
+    process::exit(1);
+	}
   // Get the first argument
   let arg = std::env::args().nth(1).expect("No username given, use <octofetch -h> for more info.");
   
