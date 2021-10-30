@@ -1,26 +1,8 @@
-// API
-use reqwest;
-use reqwest::header::USER_AGENT;
-
-// Misc
 use termion::color;
-use serde::{Serialize, Deserialize};
-use serde_json;
 use std::process;
 
+mod api;
 mod content_box;
-
-#[derive(Serialize, Deserialize)]
-struct UserData {
-    login: String,
-    name: String,
-    bio: Option<String>,
-    public_repos: i64,
-    public_gists: i64,
-    followers: i64,
-    following: i64,
-    html_url: String,
-}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -34,18 +16,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         process::exit(1);
     }
 
-    let url = format!( "https://api.github.com/users/{}", username );
-    
-    // Get the body of the request
-    let client = reqwest::Client::new();
-    let res = client.get(url).header(USER_AGENT, "octofetch cli").send().await?.text().await?;
-    // The json of the api's body
-    let user: UserData = serde_json::from_str(&res)?;
-    
-    let mut info = content_box::ContentBox{ pushed_lines: Vec::new(), longest_line: 0 };
+    let user: api::UserData = api::get(username).await?;
 
+    // Colors
     let main = color::Fg(color::Magenta);
     let accent = color::Fg(color::White);
+
+    // The fetch
+    let mut info = content_box::ContentBox{ pushed_lines: Vec::new(), longest_line: 0 };
 
     info.push(format!("{}Username: {}{}"  , main, accent, user.login));
     if user.bio != None {
