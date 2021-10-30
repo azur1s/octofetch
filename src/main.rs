@@ -6,6 +6,10 @@ mod content_box;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    if std::env::args().nth(1) == None {
+		println!("No username given. Exiting...");
+		process::exit(1);
+	}
     let username = std::env::args()
         .nth(1)
         .expect("No username given. Exiting...");
@@ -14,7 +18,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if username.eq("-v") {
         const VERSION: &str = env!("CARGO_PKG_VERSION");
         println!("octofetch v{}", VERSION);
-        process::exit(1);
+        process::exit(0);
     }
 
     let user = api::get(username).await?;
