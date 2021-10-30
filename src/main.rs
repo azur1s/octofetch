@@ -16,7 +16,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         process::exit(1);
     }
 
-    let user: api::UserData = api::get(username).await?;
+    let user = api::get(username).await?;
 
     // Colors
     let main = color::Fg(color::Magenta);
