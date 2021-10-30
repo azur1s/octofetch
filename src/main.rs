@@ -6,6 +6,10 @@ mod content_box;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    if std::env::args().nth(1) == None {
+	    eprintln!("No username given. Exiting...");
+	    process::exit(1);
+    }
     let username = std::env::args()
         .nth(1)
         .expect("No username given. Exiting...");
@@ -14,7 +18,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if username.eq("-v") {
         const VERSION: &str = env!("CARGO_PKG_VERSION");
         println!("octofetch v{}", VERSION);
-        process::exit(1);
+        process::exit(0);
+    } else if username.eq("-h") {
+        println!("Usage: octofetch <username>");
+        process::exit(0);
     }
 
     let user = api::get(username).await?;
@@ -35,7 +42,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     info.push(format!("{}Repos: {}{}", main, accent, user.public_repos));
     info.push(format!("{}Gists: {}{}", main, accent, user.public_gists));
-    info.push(format!("{}Follower: {}{}", main, accent, user.followers));
+    info.push(format!("{}Followers: {}{}", main, accent, user.followers));
     info.push(format!("{}Following: {}{}", main, accent, user.following));
     info.push(format!("{}Url: {}{}", main, accent, user.html_url));
 
