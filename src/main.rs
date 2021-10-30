@@ -66,6 +66,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     info.push(colorful_format("Gists", user.public_gists.to_string()));
     info.push(colorful_format("Followers", user.followers.to_string()));
     info.push(colorful_format("Following", user.following.to_string()));
+    if user.location != None {
+        info.push(colorful_format("Location", user.location.unwrap()));
+    }
     info.push(colorful_format("Url", user.html_url));
 
     println!("{}", info.to_string());

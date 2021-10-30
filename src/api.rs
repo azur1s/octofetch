@@ -14,10 +14,13 @@ pub struct UserData {
     pub followers: i64,
     pub following: i64,
     pub html_url: String,
+    pub location: Option<String>,
 }
 
+const GITHUB_ENDPOINT: &str = "https://api.github.com/users/";
+
 pub async fn get(username: String) -> Result<UserData, Box<dyn std::error::Error>> {
-    let url = format!("https://api.github.com/users/{}", username);
+    let url = format!("{}{}", GITHUB_ENDPOINT, username);
 
     // Get the body of the request
     let client = reqwest::Client::new();
