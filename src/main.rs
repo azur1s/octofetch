@@ -4,35 +4,49 @@ use termion::color;
 mod api;
 mod content_box;
 
+/// Parses a string with predetermined colors
+/// ### Arguments
+///
+/// * `key` - The key of the value
+/// * `text` - The content
+/// 
+/// ### Todo
+/// Make config file for colors in .config directory
 fn colorful_format(key: &str, text: String) -> String {
-    let MAIN_COLOR = color::Fg(color::Magenta);
-    let ACCENT_COLOR = color::Fg(color::White);
-
-    return format!("{}{}: {}{}", MAIN_COLOR, key, ACCENT_COLOR, text);
+    let main_color = color::Fg(color::Magenta);
+    let acccent_color = color::Fg(color::White);
+    return format!("{}{}: {}{}", main_color, key, acccent_color, text);
 }
+
+const HELP_MESSAGE: &str = "
+Usage:
+    octofetch <username>
+Other:
+    -v    Print version and exit.
+    -h    Print help and exit.
+";
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    if std::env::args().nth(1) == None {
-	    eprintln!("No username given. Exiting...");
+
+    // Get the first argument
+    let arg = std::env::args().nth(1).expect("No username given, exitting...");
+    
+    if arg.is_empty() { 
 	    process::exit(1);
     }
-    
-    let username = std::env::args()
-        .nth(1)
-        .expect("No username given. Exiting...");
 
-    // -v : print version and exit
-    if username.eq("-v") {
+    // this might be scuffed
+    if arg.eq("-v") {
         const VERSION: &str = env!("CARGO_PKG_VERSION");
         println!("octofetch v{}", VERSION);
         process::exit(0);
-    } else if username.eq("-h") {
-        println!("Usage: octofetch <username>");
+    } else if arg.eq("-h") {
+        print!("{}", HELP_MESSAGE);
         process::exit(0);
     }
-
-    let user = api::get(username).await?;
+   
+    let user = api::get(arg).await?;
 
     if user.login.is_empty() {
         println!("User not found");
@@ -50,7 +64,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     info.push(colorful_format("Repos", user.public_repos.to_string()));
     info.push(colorful_format("Gists", user.public_gists.to_string()));
-    info.push(colorful_format("Follower", user.followers.to_string()));
+    info.push(colorful_format("Followers", user.followers.to_string()));
     info.push(colorful_format("Following", user.following.to_string()));
     info.push(colorful_format("Url", user.html_url));
 
