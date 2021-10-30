@@ -30,7 +30,7 @@ Other:
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   
   if std::env::args().nth(1) == None {
-    println!("No username given. Exiting...");
+    println!("No username given, use <octofetch -h> for more info.");
     process::exit(1);
 	}
   // Get the first argument
