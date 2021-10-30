@@ -9,7 +9,7 @@ use serde_json;
 #[derive(Serialize, Deserialize)]
 pub struct UserData {
     pub login: String,
-    pub name: String,
+    pub name: Option<String>,
     pub bio: Option<String>,
     pub public_repos: i64,
     pub public_gists: i64,
