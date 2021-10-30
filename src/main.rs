@@ -30,11 +30,12 @@ Other:
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
   
   if std::env::args().nth(1) == None {
-    println!("No username given, use <octofetch -h> for more info.");
+    eprintln!("No username given, use <octofetch -h> for more info.");
     process::exit(1);
-	}
+  }
   // Get the first argument
-  let arg = std::env::args().nth(1).expect("No username given, use <octofetch -h> for more info.");
+  let arg = std::env::args().nth(1)
+    .expect("No username given, use <octofetch -h> for more info.");
   
   if arg.is_empty() { 
     process::exit(1);
