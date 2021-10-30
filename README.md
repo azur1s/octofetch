@@ -21,5 +21,12 @@ fetch github user stats lol
 
 <img src=https://taku.n1ko23.moe/static/attachments/1635502055170-image.png>
 
-# Known bugs
-- No error handling
+# FAQ
+
+### Why rust? that language can also do the same thing!
+
+Yes, I agree with that but, This is my first project
+on rust and I might implement some more feature in the
+future too. Pretty proud of it ngl :D
+
+
