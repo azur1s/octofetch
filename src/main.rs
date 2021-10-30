@@ -19,6 +19,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         const VERSION: &str = env!("CARGO_PKG_VERSION");
         println!("octofetch v{}", VERSION);
         process::exit(0);
+    } else if username.eq("-h") {
+        println!("Usage: octofetch <username>");
+        process::exit(0);
     }
 
     let user = api::get(username).await?;
