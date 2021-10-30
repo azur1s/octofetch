@@ -1,10 +1,8 @@
 // API
-use reqwest;
 use reqwest::header::USER_AGENT;
 
 // JSON stuff
-use serde::{Serialize, Deserialize};
-use serde_json;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct UserData {
@@ -19,15 +17,19 @@ pub struct UserData {
 }
 
 pub async fn get(username: String) -> Result<UserData, Box<dyn std::error::Error>> {
+    let url = format!("https://api.github.com/users/{}", username);
 
-    let url = format!( "https://api.github.com/users/{}", username );
-    
     // Get the body of the request
     let client = reqwest::Client::new();
-    let res = client.get(url).header(USER_AGENT, "octofetch cli").send().await?.text().await?;
+    let res = client
+        .get(url)
+        .header(USER_AGENT, "octofetch cli")
+        .send()
+        .await?
+        .text()
+        .await?;
     // The json of the api's body
     let user: UserData = serde_json::from_str(&res)?;
 
     Ok(user)
-
 }
