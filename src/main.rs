@@ -7,9 +7,9 @@ mod content_box;
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if std::env::args().nth(1) == None {
-		println!("No username given. Exiting...");
-		process::exit(1);
-	}
+	    eprintln!("No username given. Exiting...");
+	    process::exit(1);
+    }
     let username = std::env::args()
         .nth(1)
         .expect("No username given. Exiting...");
@@ -42,7 +42,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     info.push(format!("{}Repos: {}{}", main, accent, user.public_repos));
     info.push(format!("{}Gists: {}{}", main, accent, user.public_gists));
-    info.push(format!("{}Follower: {}{}", main, accent, user.followers));
+    info.push(format!("{}Followers: {}{}", main, accent, user.followers));
     info.push(format!("{}Following: {}{}", main, accent, user.following));
     info.push(format!("{}Url: {}{}", main, accent, user.html_url));
 
