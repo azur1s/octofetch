@@ -7,7 +7,7 @@ pub struct ContentBox {
 
 impl fmt::Display for ContentBox {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let dashes = "─".repeat(self.longest_line + 2 - 18);
+        let dashes = "─".repeat(self.longest_line + 3 - 18);
 
         writeln!(f, "╭{}╮", dashes)?;
 
