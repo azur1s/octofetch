@@ -1,5 +1,5 @@
 use std::process;
-use crossterm::style::{SetForegroundColor, Color};
+use crossterm::style::{ SetForegroundColor, Color, ResetColor};
 use config_manager::CustomColor;
 
 mod api;
@@ -19,7 +19,7 @@ fn colorful_format(key: &str, text: &String, key_color: Color, text_color: Color
   // issues with older/primitive terminals with limited color support
   let main_color = SetForegroundColor(key_color);
   let acccent_color = SetForegroundColor(text_color);
-  return format!("{}{}: {}{}", main_color, key, acccent_color, text);
+  return format!("{}{}: {}{}{}", main_color, key, acccent_color, text, ResetColor);
 }
 
 /// Parses a color from the CustomColor and returns Color
@@ -46,7 +46,7 @@ Usage:
 Other:
     -v          Print version and exit.
     -h          Print help and exit.
-    -c  {path}  Loads a custom config file
+    -c <path>   Loads a custom config file
 ";
 
 #[tokio::main]
@@ -57,27 +57,44 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     process::exit(1);
   }
   // Get the first argument
-  let arg = std::env::args().nth(1)
+  let user_to_search = std::env::args().nth(1)
     .expect("No username given, use <octofetch -h> for more info.");
   
-  if arg.is_empty() { 
+  if user_to_search.is_empty() { 
     process::exit(1);
   }
 
-  // TODO: create pipeline for multiple arguments
-  //let args: Vec<String> = std::env::args().collect();
+  let mut config_path: Option<&str> = None;
 
-  // this might be scuffed
-  if arg.eq("-v") {
-    const VERSION: &str = env!("CARGO_PKG_VERSION");
-    println!("octofetch v{}", VERSION);
-    process::exit(0);
-  } else if arg.eq("-h") {
-    print!("{}", HELP_MESSAGE);
-    process::exit(0);
+  // TODO: create pipeline for multiple arguments
+  let args: Vec<String> = std::env::args().collect();
+  let mut index: usize = 0;
+  while args.len() > index {
+    let arg: &str = &args[index];
+    match arg {
+      "-v" => {
+        const VERSION: &str = env!("CARGO_PKG_VERSION");
+        println!("octofetch v{}", VERSION);
+        process::exit(0);
+      },
+      "-h" => {
+        print!("{}", HELP_MESSAGE);
+        process::exit(0);
+      },
+      "-c" => {
+        index = index + 1;
+        if index < args.len() {
+          config_path = Some(&args[index]);
+          index = index + 1;
+        } else {
+          println!("No config path specified, use <octofetch -h> for more info. Using default config.");
+        }
+      },
+      _ => index = index + 1,
+    }
   }
   
-  let user = api::get(arg).await?;
+  let user = api::get(user_to_search).await?;
 
   if user.login.is_empty() {
     println!("User not found");
@@ -85,7 +102,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   }
 
   // Load the config from file
-  let config = config_manager::load_config(None)?;
+  let config = config_manager::load_config(config_path)?;
   // Parse the colors
   let total_chars = color_char_count(&config.main_color) + color_char_count(&config.accent_color);
   let main_color = parse_color(config.main_color);
@@ -95,7 +112,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let mut info = content_box::ContentBox {
     pushed_lines: Vec::new(),
     longest_line: 0,
-    static_reduction: 20 + total_chars,
+    static_reduction: 24 + total_chars,
   };
   info.push(colorful_format("Username", &user.login, main_color, accent_color));
   if user.bio != None {
