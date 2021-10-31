@@ -3,11 +3,12 @@ use std::fmt;
 pub struct ContentBox {
   pub pushed_lines: Vec<String>,
   pub longest_line: usize,
+  pub static_reduction: usize,
 }
 
 impl fmt::Display for ContentBox {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    let dashes = "─".repeat(self.longest_line + 3 - 18);
+    let dashes = "─".repeat(self.longest_line + 3 - self.static_reduction);
 
     writeln!(f, "╭{}╮", dashes)?;
 
