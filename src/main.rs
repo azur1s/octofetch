@@ -1,5 +1,5 @@
 use std::process;
-use termion::color;
+use crossterm::style::{SetForegroundColor, Color};
 
 mod api;
 mod content_box;
@@ -13,8 +13,8 @@ mod content_box;
 /// ### Todo
 /// Make config file for colors in .config directory
 fn colorful_format(key: &str, text: String) -> String {
-  let main_color = color::Fg(color::Magenta);
-  let acccent_color = color::Fg(color::White);
+  let main_color = SetForegroundColor(Color::Magenta);
+  let acccent_color = SetForegroundColor(Color::White);
   return format!("{}{}: {}{}", main_color, key, acccent_color, text);
 }
 
