@@ -16,7 +16,7 @@ Run `cargo install --git https://github.com/azur1s/octofetch`
 
 1. Clone git repos: ```git clone https://github.com/azur1s/octofetch```
 2. Change directory: ```cd octofetch```
-3. Build binary ```make``` or ```cargo bulid```
+3. Build binary ```make build``` or ```cargo bulid```
 4. Change directory to ```./target/debug``` and then run it!
 
 # Features
