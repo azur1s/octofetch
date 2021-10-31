@@ -18,7 +18,7 @@ fn colorful_format(key: &str, text: String) -> String {
   return format!("{}{}: {}{}", main_color, key, acccent_color, text);
 }
 
-const HELP_MESSAGE: &str = "
+const HELP_MESSAGE: &str = "\
 Usage:
     octofetch <username>
 Other:
@@ -76,7 +76,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   }
   info.push(colorful_format("Url", user.html_url));
 
-  println!("{}", info.to_string());
+  println!("{}", info.to_string().trim_end());
 
   Ok(())
 }
