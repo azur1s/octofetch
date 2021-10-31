@@ -14,7 +14,7 @@ mod config_manager;
 /// * `key_color` - The foreground color of the key
 /// * `text_color` - The foreground color of the content
 /// 
-fn colorful_format(key: &str, text: String, key_color: Color, text_color: Color) -> String {
+fn colorful_format(key: &str, text: &String, key_color: Color, text_color: Color) -> String {
   // One would preferably want to use colors that are ANSI to avoid 
   // issues with older/primitive terminals with limited color support
   let main_color = SetForegroundColor(key_color);
@@ -97,18 +97,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     longest_line: 0,
     static_reduction: 20 + total_chars,
   };
-  info.push(colorful_format("Username", user.login, main_color, accent_color));
+  info.push(colorful_format("Username", &user.login, main_color, accent_color));
   if user.bio != None {
-    info.push(colorful_format("Bio", user.bio.unwrap(), main_color, accent_color));
+    info.push(colorful_format("Bio", &user.bio.unwrap(), main_color, accent_color));
   }
-  info.push(colorful_format("Repos", user.public_repos.to_string(), main_color, accent_color));
-  info.push(colorful_format("Gists", user.public_gists.to_string(), main_color, accent_color));
-  info.push(colorful_format("Followers", user.followers.to_string(), main_color, accent_color));
-  info.push(colorful_format("Following", user.following.to_string(), main_color, accent_color));
+  info.push(colorful_format("Repos", &user.public_repos.to_string(), main_color, accent_color));
+  info.push(colorful_format("Gists", &user.public_gists.to_string(), main_color, accent_color));
+  info.push(colorful_format("Followers", &user.followers.to_string(), main_color, accent_color));
+  info.push(colorful_format("Following", &user.following.to_string(), main_color, accent_color));
   if user.location != None {
-    info.push(colorful_format("Location", user.location.unwrap(), main_color, accent_color));
+    info.push(colorful_format("Location", &user.location.unwrap(), main_color, accent_color));
   }
-  info.push(colorful_format("Url", user.html_url, main_color, accent_color));
+  info.push(colorful_format("Url", &user.html_url, main_color, accent_color));
 
   println!("{}", info.to_string().trim_end());
 
