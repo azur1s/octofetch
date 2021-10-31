@@ -5,9 +5,11 @@ pub struct ContentBox {
   pub longest_line: usize,
 }
 
+const COLOR_OFFSET: usize = 17;
+
 impl fmt::Display for ContentBox {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    let dashes = "─".repeat(self.longest_line + 3 - 18);
+    let dashes = "─".repeat(self.longest_line - COLOR_OFFSET);
 
     writeln!(f, "╭{}╮", dashes)?;
 
