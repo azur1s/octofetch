@@ -82,7 +82,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let total_chars = color_char_count(&config.main_color) + color_char_count(&config.accent_color);
   let main_color = parse_color(config.main_color);
   let accent_color = parse_color(config.accent_color);
-  println!("{}", total_chars);
 
   // The fetch
   let mut info = content_box::ContentBox {
