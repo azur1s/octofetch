@@ -40,8 +40,9 @@ const HELP_MESSAGE: &str = "\
 Usage:
     octofetch <username>
 Other:
-    -v    Print version and exit.
-    -h    Print help and exit.
+    -v          Print version and exit.
+    -h          Print help and exit.
+    -c  {path}  Loads a custom config file
 ";
 
 #[tokio::main]
@@ -58,6 +59,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   if arg.is_empty() { 
     process::exit(1);
   }
+
+  // TODO: create pipeline for multiple arguments
+  //let args: Vec<String> = std::env::args().collect();
 
   // this might be scuffed
   if arg.eq("-v") {
