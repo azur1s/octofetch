@@ -21,6 +21,7 @@ fn colorful_format(key: &str, text: String, key_color: Color, text_color: Color)
   let acccent_color = SetForegroundColor(text_color);
   return format!("{}{}: {}{}", main_color, key, acccent_color, text);
 }
+
 /// Parses a color from the CustomColor and returns Color
 /// ### Arguments
 /// * `color` - The CustomColor to be parsed
@@ -28,6 +29,9 @@ fn parse_color(color: CustomColor) -> Color {
   return Color::Rgb { r: color.red, g: color.green, b: color.blue };
 }
 
+/// Gets the amount of digits the rgb values have in total and returns it
+/// ### Arguments
+/// * `color` - The CustomColor object where the rgb values are fetched
 fn color_char_count(color: &CustomColor) -> usize {
   let mut char_count = 0;
   char_count += color.red.to_string().len();
