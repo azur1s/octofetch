@@ -114,6 +114,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     longest_line: 0,
     static_reduction: 24 + total_chars,
   };
+
   info.push(colorful_format("Username", &user.login, main_color, accent_color));
   if user.bio != None {
     info.push(colorful_format("Bio", &user.bio.unwrap(), main_color, accent_color));
@@ -125,7 +126,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   if user.location != None {
     info.push(colorful_format("Location", &user.location.unwrap(), main_color, accent_color));
   }
-  info.push(colorful_format("Url", &user.html_url, main_color, accent_color));
+  if user.blog != "" {
+    info.push(colorful_format("Url", &user.blog, main_color, accent_color));
+  } else {
+    info.push(colorful_format("Url", &user.html_url, main_color, accent_color));
+  }
 
   println!("{}", info.to_string().trim_end());
 

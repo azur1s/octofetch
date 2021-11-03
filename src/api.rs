@@ -14,6 +14,7 @@ pub struct UserData {
   pub followers: i64,
   pub following: i64,
   pub html_url: String,
+  pub blog: String,
   pub location: Option<String>,
 }
 
