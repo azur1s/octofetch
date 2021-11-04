@@ -1,6 +1,8 @@
 # octofetch
 
-Use this if youre too lazy to open github lol
+A CLI tool for fetching GitHub stats, kinda like `neofetch`
+
+<img src=https://taku.n1ko23.moe/static/attachments/1635502055170-image.png>
 
 # Installation
 
@@ -26,7 +28,9 @@ fetch github user stats lol
 # Usage
 ```octofetch <username>```
 
-<img src=https://taku.n1ko23.moe/static/attachments/1635502055170-image.png>
+with custom config file
+
+```octofetch -c path\to\config <username>```
 
 # FAQ
 
