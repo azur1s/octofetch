@@ -4,6 +4,13 @@ A CLI tool for fetching GitHub stats, kinda like `neofetch`
 
 <img src=https://taku.n1ko23.moe/static/attachments/1635502055170-image.png>
 
+# Usage
+```octofetch <username>```
+
+with custom config file
+
+```octofetch -c path\to\config <username>```
+
 # Installation
 
 ### Local install with cargo
@@ -13,6 +20,8 @@ Run `cargo install --git https://github.com/azur1s/octofetch`
 ### Arch
 
 [AUR](https://aur.archlinux.org/packages/?O=0&K=octofetch) (Not by me, but usable)
+
+```yay -S octofetch``` (the `octofetch` packages seems to get faster update than `octofetch-git`)
 
 ### Github (requires Cargo)
 
@@ -24,13 +33,6 @@ Run `cargo install --git https://github.com/azur1s/octofetch`
 # Features
 
 fetch github user stats lol
-
-# Usage
-```octofetch <username>```
-
-with custom config file
-
-```octofetch -c path\to\config <username>```
 
 # FAQ
 
