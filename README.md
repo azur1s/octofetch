@@ -21,6 +21,13 @@ with custom config file
 
 # Installation
 
+### Windows
+
+1. Get the latest `.exe` file from [here](https://github.com/azur1s/octofetch/releases)
+2. Place the file somewhere you can access and open terminal at that directory
+3. Do `./octofetch.exe <username>`
+4. Add to PATH variables for easier usage (optional)
+
 ### Local install with cargo
 
 Run `cargo install --git https://github.com/azur1s/octofetch`
