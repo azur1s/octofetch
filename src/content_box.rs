@@ -18,7 +18,7 @@ impl fmt::Display for ContentBox {
       }
 
       let dashes = "─";
-      let top = format!("╭─ {} {}╮", self.header, dashes.repeat(self.longest_line - self.static_reduction - self.header.len()));
+      let top = format!("╭{}{}╮", self.header,dashes.repeat(self.longest_line + 3 - self.static_reduction - self.header.len()));
 
       writeln!(f, "{}", top)?;
   
