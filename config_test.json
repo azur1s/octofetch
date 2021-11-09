@@ -1,0 +1,19 @@
+{
+  "Header": " mustekala-hae ",
+  "Separator": ":",
+  "Border": true,
+  "MainColor": { "Red": 255, "Green": 0, "Blue": 255 },
+  "AccentColor": { "Red": 255, "Green": 255, "Blue": 255 },
+  "Keys": {
+    "Login": "Kayttajatunnus",
+    "Name": "Nimi",
+    "Bio": "Elamakerta",
+    "PublicRepos": "Arkisto",
+    "PublicGists": "Gists",
+    "Followers": "Kannattaja",
+    "Following": "Seuraaja",
+    "HtmlUrl": "Url",
+    "Blog": "Blogi",
+    "Location": "Sijainti"
+  }
+}

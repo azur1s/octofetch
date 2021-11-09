@@ -25,7 +25,9 @@ pub struct Config {
   /// The main color across the program
   pub main_color: CustomColor,
   /// The accent color across the program
-  pub accent_color: CustomColor
+  pub accent_color: CustomColor,
+  /// The key's texts
+  pub keys: Keys
 }
 
 /// The Custom color structure used to create custom color objects that can then be parsed for `crossterm::style::Color`
@@ -38,6 +40,22 @@ pub struct CustomColor {
   pub green: u8,
   /// Blue (0 - 255)
   pub blue: u8,
+}
+
+/// The key's text
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "PascalCase")]
+pub struct Keys {
+  pub login: String,
+  pub name: String,
+  pub bio: String,
+  pub public_repos: String,
+  pub public_gists: String,
+  pub followers: String,
+  pub following: String,
+  pub html_url: String,
+  pub blog: String,
+  pub location: String,
 }
 
 /// Loads a config from file and returns it. If load fails, an error is thrown.

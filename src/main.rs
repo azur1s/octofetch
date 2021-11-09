@@ -118,21 +118,21 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     border: config.border,
   };
 
-  info.push(colorful_format("Username", &user.login, separator, main_color, accent_color));
+  info.push(colorful_format(&config.keys.login, &user.login, separator, main_color, accent_color));
   if user.bio != None {
-    info.push(colorful_format("Bio", &user.bio.unwrap(), separator, main_color, accent_color));
+    info.push(colorful_format(&config.keys.bio, &user.bio.unwrap(), separator, main_color, accent_color));
   }
-  info.push(colorful_format("Repos", &user.public_repos.to_string(), separator, main_color, accent_color));
-  info.push(colorful_format("Gists", &user.public_gists.to_string(), separator, main_color, accent_color));
-  info.push(colorful_format("Followers", &user.followers.to_string(), separator, main_color, accent_color));
-  info.push(colorful_format("Following", &user.following.to_string(), separator, main_color, accent_color));
+  info.push(colorful_format(&config.keys.public_repos, &user.public_repos.to_string(), separator, main_color, accent_color));
+  info.push(colorful_format(&config.keys.public_gists, &user.public_gists.to_string(), separator, main_color, accent_color));
+  info.push(colorful_format(&config.keys.followers, &user.followers.to_string(), separator, main_color, accent_color));
+  info.push(colorful_format(&config.keys.following, &user.following.to_string(), separator, main_color, accent_color));
   if user.location != None {
-    info.push(colorful_format("Location", &user.location.unwrap(), separator, main_color, accent_color));
+    info.push(colorful_format(&config.keys.location, &user.location.unwrap(), separator, main_color, accent_color));
   }
   if user.blog != "" {
-    info.push(colorful_format("Url", &user.blog, separator, main_color, accent_color));
+    info.push(colorful_format(&config.keys.blog, &user.blog, separator, main_color, accent_color));
   } else {
-    info.push(colorful_format("Url", &user.html_url, separator, main_color, accent_color));
+    info.push(colorful_format(&config.keys.html_url, &user.html_url, separator, main_color, accent_color));
   }
 
   println!("{}", info.to_string().trim_end());
