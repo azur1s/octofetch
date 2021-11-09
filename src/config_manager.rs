@@ -4,7 +4,7 @@ use std::error::Error;
 
 static DEFAULT_CONFIG: &str = r#"
   {
-    "Header": "octofetch",
+    "Header": " octofetch ",
     "Separator": ":",
     "Border": true,
     "MainColor": { "Red": 255, "Green": 0, "Blue": 255 },
