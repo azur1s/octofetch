@@ -4,8 +4,10 @@ use std::error::Error;
 
 static DEFAULT_CONFIG: &str = r#"
   {
+    "Header": "octofetch",
     "Separator": ":",
-    "MainColor": { "Red": 255, "Green": 75, "Blue": 75 },
+    "Border": true,
+    "MainColor": { "Red": 255, "Green": 0, "Blue": 255 },
     "AccentColor": { "Red": 255, "Green": 255, "Blue": 255 }
   }
 "#;
@@ -14,6 +16,8 @@ static DEFAULT_CONFIG: &str = r#"
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Config {
+  /// The header on top of the border
+  pub header: String,
   /// The separator between the key and value
   pub separator: String,
   /// Display the border or not

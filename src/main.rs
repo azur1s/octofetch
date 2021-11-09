@@ -1,5 +1,5 @@
 use std::process;
-use crossterm::style::{ SetForegroundColor, Color, ResetColor};
+use crossterm::style::{ SetForegroundColor, Color, ResetColor };
 use config_manager::CustomColor;
 
 mod api;
@@ -103,14 +103,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
   // Load the config from file
   let config = config_manager::load_config(config_path)?;
+  let separator = &config.separator;
   // Parse the colors
   let total_chars = color_char_count(&config.main_color) + color_char_count(&config.accent_color);
   let main_color = parse_color(config.main_color);
   let accent_color = parse_color(config.accent_color);
-  let separator = &config.separator;
 
   // The fetch
   let mut info = content_box::ContentBox {
+    header: config.header,
     pushed_lines: Vec::new(),
     longest_line: 0,
     static_reduction: 24 + total_chars,

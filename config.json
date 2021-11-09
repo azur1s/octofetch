@@ -1,4 +1,5 @@
 {
+  "Header": "octofetch",
   "Separator": ":",
   "Border": true,
   "MainColor": { "Red": 255, "Green": 0, "Blue": 255 },
