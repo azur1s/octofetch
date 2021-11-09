@@ -4,24 +4,38 @@ pub struct ContentBox {
   pub pushed_lines: Vec<String>,
   pub longest_line: usize,
   pub static_reduction: usize,
+  pub border: bool,
 }
 
 impl fmt::Display for ContentBox {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    let dashes = "─".repeat(self.longest_line + 3 - self.static_reduction);
+    if self.border {
 
-    writeln!(f, "╭{}╮", dashes)?;
+      let dashes = "─".repeat(self.longest_line + 3 - self.static_reduction);
 
-    for pushed_line in self.pushed_lines.iter() {
-      writeln!(
-        f,
-        "│ {}{} │",
-        pushed_line,
-        " ".repeat(self.longest_line - pushed_line.len() + 1)
-      )?;
+      writeln!(f, "╭{}╮", dashes)?;
+  
+      for pushed_line in self.pushed_lines.iter() {
+        writeln!(
+          f,
+          "│ {}{} │",
+          pushed_line,
+          " ".repeat(self.longest_line - pushed_line.len() + 1)
+        )?;
+      }
+  
+      writeln!(f, "╰{}╯", dashes)
+      
+    } else {
+
+      for pushed_line in self.pushed_lines.iter() {
+        writeln!(f, "{}", pushed_line)?;
+      }
+
+      writeln!(f)
+
     }
 
-    writeln!(f, "╰{}╯", dashes)
   }
 }
 

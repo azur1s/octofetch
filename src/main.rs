@@ -14,12 +14,12 @@ mod config_manager;
 /// * `key_color` - The foreground color of the key
 /// * `text_color` - The foreground color of the content
 /// 
-fn colorful_format(key: &str, text: &String, key_color: Color, text_color: Color) -> String {
+fn colorful_format(key: &str, text: &String, separator: &String, key_color: Color, text_color: Color) -> String {
   // One would preferably want to use colors that are ANSI to avoid 
   // issues with older/primitive terminals with limited color support
   let main_color = SetForegroundColor(key_color);
   let acccent_color = SetForegroundColor(text_color);
-  return format!("{}{}: {}{}{}", main_color, key, acccent_color, text, ResetColor);
+  return format!("{}{}{} {}{}{}", main_color, key, separator, acccent_color, text, ResetColor);
 }
 
 /// Parses a color from the CustomColor and returns Color
@@ -107,29 +107,31 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
   let total_chars = color_char_count(&config.main_color) + color_char_count(&config.accent_color);
   let main_color = parse_color(config.main_color);
   let accent_color = parse_color(config.accent_color);
+  let separator = &config.separator;
 
   // The fetch
   let mut info = content_box::ContentBox {
     pushed_lines: Vec::new(),
     longest_line: 0,
     static_reduction: 24 + total_chars,
+    border: config.border,
   };
 
-  info.push(colorful_format("Username", &user.login, main_color, accent_color));
+  info.push(colorful_format("Username", &user.login, separator, main_color, accent_color));
   if user.bio != None {
-    info.push(colorful_format("Bio", &user.bio.unwrap(), main_color, accent_color));
+    info.push(colorful_format("Bio", &user.bio.unwrap(), separator, main_color, accent_color));
   }
-  info.push(colorful_format("Repos", &user.public_repos.to_string(), main_color, accent_color));
-  info.push(colorful_format("Gists", &user.public_gists.to_string(), main_color, accent_color));
-  info.push(colorful_format("Followers", &user.followers.to_string(), main_color, accent_color));
-  info.push(colorful_format("Following", &user.following.to_string(), main_color, accent_color));
+  info.push(colorful_format("Repos", &user.public_repos.to_string(), separator, main_color, accent_color));
+  info.push(colorful_format("Gists", &user.public_gists.to_string(), separator, main_color, accent_color));
+  info.push(colorful_format("Followers", &user.followers.to_string(), separator, main_color, accent_color));
+  info.push(colorful_format("Following", &user.following.to_string(), separator, main_color, accent_color));
   if user.location != None {
-    info.push(colorful_format("Location", &user.location.unwrap(), main_color, accent_color));
+    info.push(colorful_format("Location", &user.location.unwrap(), separator, main_color, accent_color));
   }
   if user.blog != "" {
-    info.push(colorful_format("Url", &user.blog, main_color, accent_color));
+    info.push(colorful_format("Url", &user.blog, separator, main_color, accent_color));
   } else {
-    info.push(colorful_format("Url", &user.html_url, main_color, accent_color));
+    info.push(colorful_format("Url", &user.html_url, separator, main_color, accent_color));
   }
 
   println!("{}", info.to_string().trim_end());

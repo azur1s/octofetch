@@ -1,4 +1,6 @@
 {
-  "MainColor": { "Red": 255, "Green": 5, "Blue": 175 },
+  "Separator": ":",
+  "Border": true,
+  "MainColor": { "Red": 255, "Green": 0, "Blue": 255 },
   "AccentColor": { "Red": 255, "Green": 255, "Blue": 255 }
 }

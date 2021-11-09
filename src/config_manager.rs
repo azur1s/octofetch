@@ -4,6 +4,7 @@ use std::error::Error;
 
 static DEFAULT_CONFIG: &str = r#"
   {
+    "Separator": ":",
     "MainColor": { "Red": 255, "Green": 75, "Blue": 75 },
     "AccentColor": { "Red": 255, "Green": 255, "Blue": 255 }
   }
@@ -13,6 +14,10 @@ static DEFAULT_CONFIG: &str = r#"
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Config {
+  /// The separator between the key and value
+  pub separator: String,
+  /// Display the border or not
+  pub border: bool,
   /// The main color across the program
   pub main_color: CustomColor,
   /// The accent color across the program
