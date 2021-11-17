@@ -32,18 +32,16 @@ with custom config file
 
 Run `cargo install --git https://github.com/azur1s/octofetch`
 
-### Arch
-
-[AUR](https://aur.archlinux.org/packages/?O=0&K=octofetch) (Not by me, but usable)
-
-`yay -S octofetch` (the `octofetch` packages seems to get faster update than `octofetch-git`)
-
-### Github (requires Cargo)
+### Manual install with cargo
 
 1. Clone git repos: `git clone https://github.com/azur1s/octofetch`
 2. Change directory: `cd octofetch`
-3. Build binary `make build` or `cargo bulid`
+3. Build binary `make build` or `cargo build`
 4. Change directory to `./target/debug` and then run it!
+
+### Linux
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/octofetch.svg)](https://repology.org/project/octofetch/versions)
 
 # Features
 
