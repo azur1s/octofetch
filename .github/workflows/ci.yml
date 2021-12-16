@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
       
     steps:
-      - name: Checkout
+      name: Checkout
       uses: actions/checkout@v2.4.0
         
-      - name: Install Rust
+      name: Install Rust
       uses: actions-rs/toolchain@v1
       with:
         profile: minimal
@@ -22,7 +22,7 @@ jobs:
         override: true
         components: rustfmt
           
-      - name: cargo fmt --check
+      name: cargo fmt --check
       uses: actions-rs/cargo@v1
       with:
         command: fmt
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
               
     steps:
-      - name: Install Rust
+      name: Install Rust
       uses: actions-rs/toolchain@v1
       with:
         profile: minimal
@@ -41,14 +41,14 @@ jobs:
         override: true
         components: rustfmt
                   
-      - uses: actions/checkout@v2
-      - name: Build
+      name: Build
+      uses: actions/checkout@v2
       run: cargo build --verbose --release;cp target/release/octofetch .
                   
-      - name: Run tests
+      name: Run tests
       run: cargo test --verbose --release
                   
-      - name: Upload artifact
+      name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
         name: Build artifact
