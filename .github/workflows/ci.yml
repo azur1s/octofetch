@@ -5,52 +5,52 @@ on: [push, pull_request, workflow_dispatch]
 env:
   CARGO_TERM_COLOR: always
   
-  jobs:
-    style:
-      name: Check styles
-      runs-on: ubuntu-latest
+jobs:
+  style:
+    name: Check styles
+    runs-on: ubuntu-latest
       
-      steps:
-        - name: Checkout
-        uses: actions/checkout@v2.4.0
+    steps:
+      - name: Checkout
+      uses: actions/checkout@v2.4.0
         
-        - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-          components: rustfmt
+      - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+        components: rustfmt
           
-          - name: cargo fmt --check
-          uses: actions-rs/cargo@v1
-          with:
-            command: fmt
-            args: --all -- --check
+      - name: cargo fmt --check
+      uses: actions-rs/cargo@v1
+      with:
+        command: fmt
+        args: --all -- --check
             
-            build:
-              name: Build
-              runs-on: ubuntu-latest
+  build:
+    name: Build
+    runs-on: ubuntu-latest
               
-              steps:
-                - name: Install Rust
-                uses: actions-rs/toolchain@v1
-                with:
-                  profile: minimal
-                  toolchain: stable
-                  override: true
-                  components: rustfmt
+    steps:
+      - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+        components: rustfmt
                   
-                  - uses: actions/checkout@v2
-                  - name: Build
-                  run: cargo build --verbose --release;cp target/release/octofetch .
+      - uses: actions/checkout@v2
+      - name: Build
+      run: cargo build --verbose --release;cp target/release/octofetch .
                   
-                  - name: Run tests
-                  run: cargo test --verbose --release
+      - name: Run tests
+      run: cargo test --verbose --release
                   
-                  - name: Upload artifact
-                  uses: actions/upload-artifact@v1
-                  with:
-                    name: Build artifact
-                    path: octofetch
+      - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: Build artifact
+        path: octofetch
                     
