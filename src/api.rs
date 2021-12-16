@@ -24,7 +24,7 @@ pub async fn get(username: String) -> Result<UserData, Box<dyn std::error::Error
     let url = format!("{}{}", GITHUB_ENDPOINT, username);
 
     // Get the body of the request
-    let client = reqwest::Client::new();
+  let client = reqwest::Client::new();
     let res = client
         .get(url)
         .header(USER_AGENT, "octofetch cli")
