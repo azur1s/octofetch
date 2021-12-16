@@ -4,23 +4,23 @@ use std::fs;
 
 static DEFAULT_CONFIG: &str = r#"
 {
-  "Header": " octofetch ",
-  "Separator": ":",
-  "Border": true,
-  "MainColor": { "Red": 255, "Green": 0, "Blue": 255 },
-  "AccentColor": { "Red": 255, "Green": 255, "Blue": 255 },
-  "Keys": {
-    "Login": "Username",
-    "Name": "Name",
-    "Bio": "Bio",
-    "PublicRepos": "Repos",
-    "PublicGists": "Gists",
-    "Followers": "Followers",
-    "Following": "Following",
-    "HtmlUrl": "Url",
-    "Blog": "Blog",
-    "Location": "Location"
-  }
+    "Header": " octofetch ",
+    "Separator": ":",
+    "Border": true,
+    "MainColor": { "Red": 255, "Green": 0, "Blue": 255 },
+    "AccentColor": { "Red": 255, "Green": 255, "Blue": 255 },
+    "Keys": {
+        "Login": "Username",
+        "Name": "Name",
+        "Bio": "Bio",
+        "PublicRepos": "Repos",
+        "PublicGists": "Gists",
+        "Followers": "Followers",
+        "Following": "Following",
+        "HtmlUrl": "Url",
+        "Blog": "Blog",
+        "Location": "Location"
+    }
 }
 "#;
 
