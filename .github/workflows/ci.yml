@@ -9,21 +9,20 @@ jobs:
   style:
     name: Check styles
     runs-on: ubuntu-latest
-      
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v2.4.0
+      name: Checkout
         
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
+      - uses: actions-rs/toolchain@v1
+      name: Install Rust
         with:
           profile: minimal
           toolchain: stable
           override: true
           components: rustfmt
           
-      - name: cargo fmt --check
-        uses: actions-rs/cargo@v1
+      - uses: actions-rs/cargo@v1
+      name: cargo fmt --check
         with:
           command: fmt
           args: --all -- --check
@@ -31,25 +30,21 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-              
     steps:
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
+      - uses: actions-rs/toolchain@v1
+        name: Install Rust
         with:
           profile: minimal
           toolchain: stable
           override: true
           components: rustfmt
-                  
-      - name: Build
-        uses: actions/checkout@v2
-        run: cargo build --verbose --release;cp target/release/octofetch .
-                  
+      - uses: actions/checkout@v2
+        name: Build
+        run: cargo build --verbose --release;cp target/release/octofetch .    
       - name: Run tests
         run: cargo test --verbose --release
-                  
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v1
+        name: Upload artifact
         with:
           name: Build artifact
           path: octofetch
