@@ -6,17 +6,6 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  style:
-
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: cargo fmt --check
-      uses: actions-rs/cargo@v1
-      with:
-        command: fmt
-        args: --all -- --check
-
   build:
 
     runs-on: ubuntu-latest
